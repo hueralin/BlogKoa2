@@ -12,6 +12,7 @@ const logger = require('koa-logger')
 const session = require('koa-generic-session')
 // redis
 const redisStore = require('koa-redis') 
+const { REDIS_CONF } = require('./conf/db')
 // 路由
 const index = require('./routes/index')
 const users = require('./routes/users')
@@ -60,8 +61,7 @@ app.use(session({
   },
   // 配置redis (记得启动redis-server)
   store: redisStore({
-    // 先写死本地的redis server
-    all: '127.0.0.1:6379'
+    all: `${REDIS_CONF.host}:${REDIS_CONF.port}`
   })
 }))
 
